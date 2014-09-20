@@ -21,6 +21,7 @@ import fai.domain.EntidadeDominio;
 
 public abstract class AbstractJpaDAO<E extends EntidadeDominio> implements IDAO<E> {
 	protected EntityManagerFactory emf;
+	
 	@PersistenceContext 
 	protected EntityManager em;	
 	

@@ -1,19 +1,22 @@
-
 package fai.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-
-public class TipoCliente extends EntidadeDominio{
+@Entity
+@Table(name = "tb_tipocliente")
+public class TipoCliente extends EntidadeDominio {
+	private static final long serialVersionUID = 1L;
 
 	private String descricao;
 
-	
-	public TipoCliente() {}
-	
-	public TipoCliente(String descricao) {this.descricao = descricao;}
-	
-	public TipoCliente(int id) {this.id = id;}
-	
+	public TipoCliente() {
+	}
+
+	public TipoCliente(Long parseInt) {
+		this.id = parseInt;
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -21,14 +24,4 @@ public class TipoCliente extends EntidadeDominio{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-/*	CREATE TABLE tb_tipocliente
-	(
-	  id serial NOT NULL,
-	  description character varying(30) NOT NULL,
-	  date_insert date NOT NULL,
-	  CONSTRAINT tb_tipocliente_pkey PRIMARY KEY (id)
-	)*/
-	
-	
-	
 }

@@ -11,10 +11,12 @@
 		<class>fai.domain.Pedido</class>
 		<class>fai.domain.Item</class>
 		<class>fai.domain.Modelo</class>
-
+		<class>fai.domain.Cliente</class>
+		<class>fai.domain.Endereco</class>
+		<class>fai.domain.Pessoa</class>
+		<class>fai.domain.TipoCliente</class>
 
 		<properties>
-
 			<property name="eclipselink.logging.level" value="ALL" />
 			<property name="javax.persistence.schema-generation.database.action"
 				value="create" />

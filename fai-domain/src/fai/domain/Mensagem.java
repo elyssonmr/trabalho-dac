@@ -1,21 +1,18 @@
-
 package fai.domain;
 
-
-
 public class Mensagem {
+	private String msg;
 
-	private String descricao;
-	
-	public Mensagem(String descricao){
-		this.descricao = descricao;
+	public Mensagem(String msg) {
+		this.setMsg(msg);
 	}
-	
 
-	@Override
-	public String toString() {
-		
-		return descricao;
+	public String getMsg() {
+		return msg;
 	}
-	
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
 }

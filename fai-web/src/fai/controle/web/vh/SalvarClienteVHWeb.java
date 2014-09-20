@@ -37,7 +37,7 @@ public class SalvarClienteVHWeb<C extends Cliente> implements IViewHelperWeb<C> 
 		end.setEstado(estado);
 		
 		cliente.setEndereco(end);		
-		TipoCliente t = new TipoCliente(Integer.parseInt(tpCliente));
+		TipoCliente t = new TipoCliente(Long.parseLong(tpCliente));
 		cliente.setTipoCliente(t);	
 		
 		return cliente;

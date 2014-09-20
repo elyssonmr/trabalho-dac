@@ -9,39 +9,19 @@ import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-/**
- * Entity implementation class for Entity: Fornecedor
- *
- */
 @Entity
-@Table(name="TB_Fornecedor")
+@Table(name = "tb_fornecedor")
 public class Fornecedor extends EntidadeDominio {
+	private static final long serialVersionUID = 1L;
 
-	@Column(name="rzSocial", length=30, nullable = false)
+	@Column(length = 50, nullable = false)
 	private String rzSocial;
-	
-	@ManyToMany(mappedBy="fornecedores")
+
+	@ManyToMany(mappedBy = "fornecedores")
 	private Set<Produto> produtos;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Pais pais;
-	
-	public Fornecedor(String rzSocial, Pais pais) {
-		super();
-		this.rzSocial = rzSocial;
-		this.pais = pais;
-	}   
-	
-	public Fornecedor() {
-		super();		
-	}   
-	public String getRzSocial() {
-		return this.rzSocial;
-	}
-
-	public void setRzSocial(String rzSocial) {
-		this.rzSocial = rzSocial;
-	}
 
 	public Set<Produto> getProdutos() {
 		return produtos;
@@ -50,6 +30,12 @@ public class Fornecedor extends EntidadeDominio {
 	public void setProdutos(Set<Produto> produtos) {
 		this.produtos = produtos;
 	}
-   
-	
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
 }

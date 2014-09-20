@@ -1,18 +1,13 @@
 
 package fai.controle.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import fai.core.controle.IFachada;
 import fai.dao.IDAO;
-import fai.dao.jdbc.impl.ClienteJdbcDAO;
-import fai.dao.jdbc.impl.TipoClienteDAO;
-import fai.domain.Cliente;
 import fai.domain.EntidadeDominio;
 import fai.domain.Resultado;
-import fai.domain.TipoCliente;
 
 
 
@@ -44,8 +39,7 @@ public class Fachada<F extends EntidadeDominio> implements IFachada<F> {
         List<F> entidades = dao.consultar(entidade);
         if( entidades != null){
         	r = new Resultado<F>();
-        	r.setEntidades(entidades);
-        	
+        	r.setEntidades(entidades);        	
         }
         return r;
 	}

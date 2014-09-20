@@ -27,7 +27,7 @@ public class ProdutoJpaDAO<P extends Produto> extends AbstractJpaDAO<P>{
 		return produtos;
 	}
 	
-	private Produto consultar(int id){
+	private Produto consultar(Long id){
 		Produto p = em.find(Produto.class, id);
 		return p;
 	}
