@@ -2,14 +2,14 @@
 package fai.controle.web.command.impl;
 
 import fai.controle.web.command.ICommandFrontController;
-import fai.core.controle.IFachada;
+import fai.core.controle.IFachadaDAO;
 import fai.domain.EntidadeDominio;
 
 
 
 public class CommandFrontControllerSalvar<E> implements ICommandFrontController<EntidadeDominio> {
 	
-	private IFachada fachada;
+	private IFachadaDAO fachada;
 	
 	@Override
 	public void execute(EntidadeDominio entidade) {
@@ -17,7 +17,7 @@ public class CommandFrontControllerSalvar<E> implements ICommandFrontController<
 		
 	}
 
-	public void setFachada(IFachada fachada) {
+	public void setFachada(IFachadaDAO fachada) {
 		this.fachada = fachada;
 	}
 

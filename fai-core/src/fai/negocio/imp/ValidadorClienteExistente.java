@@ -8,11 +8,11 @@ public class ValidadorClienteExistente extends AbstractValidator {
 
 	@Override
 	public String validar(EntidadeDominio entidade) {
-//		IDAO dao = new ClienteDAO();
-//
-//		if (dao.consulta(entidade).size() != 0) {
-//			return "Cliente já cadastrado";
-//		}
+		IDAO dao = new ClienteDAO();
+
+		if (dao.consultar(entidade).size() != 0) {
+			return "Cliente já cadastrado";
+		}
 		return null;
 	}
 

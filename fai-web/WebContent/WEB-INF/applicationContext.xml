@@ -15,7 +15,7 @@
 	<bean
 		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
-	<bean id="fachada" class="fai.controle.impl.Fachada" lazy-init="false"
+	<bean id="fachada" class="fai.controle.impl.FachadaDAO" lazy-init="false"
 		scope="singleton">
 		<property name="daos">
 			<map>
@@ -36,6 +36,7 @@
 		<entry key="/fai-web/SalvarTipoCliente" value-ref="salvarTipoClienteVHWeb" />
 		<entry key="/fai-web/SalvarCliente" value-ref="salvarClienteVHWeb" />
 		<entry key="/fai-web/SalvarCategoria" value-ref="salvarCategoriaVHWeb" />
+		<entry key="/fai-web/SalvarEmprestimo" value-ref="salvarEmprestimoVHWeb" />
 
 	</util:map>
 
@@ -50,10 +51,15 @@
 	<bean id="salvarClienteVHWeb" class="fai.controle.web.vh.SalvarClienteVHWeb">
 		<property name="cliente" ref="cliente" />
 	</bean>
+	
+	<bean id="salvarEmprestimoVHWeb" class="fai.controle.web.vh.SalvarEmprestimoVHWeb">
+		<property name="emprestimo" ref="emprestimo" />
+	</bean>
 
 	<bean id="cliente" class="fai.domain.Cliente" />
 	<bean id="tipo" class="fai.domain.TipoCliente" />
 	<bean id="categoria" class="fai.domain.Categoria" />
+	<bean id="emprestimo" class="fai.domain.Emprestimo" />
 
 	<bean id="commandFrontControllerSalvar"
 		class="fai.controle.web.command.impl.CommandFrontControllerSalvar">
@@ -103,6 +109,10 @@
 	<bean id="categoriaJpaDAO" class="fai.dao.jpa.impl.CategoriaJpaDAO">
 		<property name="emf" ref="entityManagerFactory" />
 	</bean>
+	
+	<bean id="emprestimoJpaDAO" class="fai.dao.jpa.impl.EmprestimoDAO">
+		<property name="emf" ref="entityManagerFactory" />
+	</bean>
 
 
 	<!-- entity manager factory -->
@@ -116,8 +126,4 @@
 		</property>
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManagerJPA" />
-
-
-
-
 </beans>  

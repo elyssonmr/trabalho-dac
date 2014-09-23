@@ -15,26 +15,26 @@
 	<bean id="clienteDao" class="fai.dao.jpa.impl.ClienteDAO" />
 
 	<bean id="cliente" class="fai.domain.Cliente">
-		<property name="nome" value="Élysson MR" />
-		<property name="cpf" value="12345678901" />
+		<property name="nome" value="Joao Marco" />
+		<property name="cpf" value="09876543212" />
 		<property name="endereco">
 			<bean class="fai.domain.Endereco">
 				<property name="cidade" value="Santa Rita" />
 				<property name="estado" value="Minas Gerais" />
-				<property name="logradouro" value="Rua da FAI" />
-				<property name="numero" value="123" />
-				<property name="cep" value="37550000" />
+				<property name="logradouro" value="Rua A" />
+				<property name="numero" value="45" />
+				<property name="cep" value="37540000" />
 			</bean>
 		</property>
-		<property name="credito" value="200.0" />
+		<property name="credito" value="500.0" />
 		<property name="tipoCliente">
 			<bean class="fai.domain.TipoCliente">
 				<property name="descricao" value="Pessoa Fisica" />
 			</bean>
 		</property>
-		<property name="agencia" value="ag123" />
-		<property name="conta" value="cc123" />
-		<property name="senha" value="123456" />
+		<property name="agencia" value="ag5645" />
+		<property name="conta" value="cc78789" />
+		<property name="senha" value="123123" />
 	</bean>
 
 	<bean

@@ -1,11 +1,14 @@
 package fai.domain;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -18,10 +21,21 @@ public class Cliente extends Pessoa {
 	@JoinColumn(name = "end_fk")
 	private Endereco endereco;
 
+	@Column(nullable = false)
 	private double credito;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private TipoCliente tipoCliente;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE,
+			CascadeType.DETACH })
+	private Set<Emprestimo> emprestimos;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE,
+			CascadeType.DETACH })
+	private Set<Transacao> transacoes;
 
 	@Column(length = 10, nullable = false)
 	private String agencia;
@@ -31,6 +45,9 @@ public class Cliente extends Pessoa {
 
 	@Column(length = 15, nullable = false)
 	private String senha;
+	
+	@Column(nullable = false)
+	private double salario;
 
 	public Endereco getEndereco() {
 		return endereco;
@@ -79,4 +96,30 @@ public class Cliente extends Pessoa {
 	public void setTipoCliente(TipoCliente tipoCliente) {
 		this.tipoCliente = tipoCliente;
 	}
+
+	public double getSalario() {
+		return salario;
+	}
+
+	public void setSalario(double salario) {
+		this.salario = salario;
+	}
+
+	public Set<Emprestimo> getEmprestimos() {
+		return emprestimos;
+	}
+
+	public void setEmprestimos(Set<Emprestimo> emprestimos) {
+		this.emprestimos = emprestimos;
+	}
+
+	public Set<Transacao> getTransacoes() {
+		return transacoes;
+	}
+
+	public void setTransacoes(Set<Transacao> transacoes) {
+		this.transacoes = transacoes;
+	}	
+	
+	
 }
