@@ -20,10 +20,7 @@ private static final long serialVersionUID = 1L;
 	
 	@Column(nullable = false)
 	private int tipo;
-	
-	@Column(nullable = false)
-	private Date data;
-	
+		
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "cli_id")
 	private Cliente cliente;
@@ -51,15 +48,4 @@ private static final long serialVersionUID = 1L;
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
-	}
-	
-	
-
 }

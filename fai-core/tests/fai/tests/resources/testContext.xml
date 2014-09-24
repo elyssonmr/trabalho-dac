@@ -15,7 +15,7 @@
 	<bean id="clienteDao" class="fai.dao.jpa.impl.ClienteDAO" />
 
 	<bean id="cliente" class="fai.domain.Cliente">
-		<property name="nome" value="Joao Marco" />
+		<property name="nome" value="Joao Marco de Paula Santana" />
 		<property name="cpf" value="09876543212" />
 		<property name="endereco">
 			<bean class="fai.domain.Endereco">
@@ -26,10 +26,21 @@
 				<property name="cep" value="37540000" />
 			</bean>
 		</property>
-		<property name="credito" value="500.0" />
+		<property name="credito" value="1000.0" />
 		<property name="tipoCliente">
 			<bean class="fai.domain.TipoCliente">
 				<property name="descricao" value="Pessoa Fisica" />
+			</bean>
+		</property>
+		<property name="emprestimos">
+			<bean class="fai.domain.Emprestimo">
+				<property name="valor" value="200" />
+			</bean>
+		</property>
+		<property name="transacoes">
+			<bean class="fai.domain.Transacao">
+				<property name="valor" value="1500" />
+				<property name="tipo" value="1" />
 			</bean>
 		</property>
 		<property name="agencia" value="ag5645" />

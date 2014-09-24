@@ -18,9 +18,6 @@ public class Emprestimo extends EntidadeDominio {
 	@Column(nullable = false)
 	private double valor;
 	
-	@Column(nullable = false)
-	private Date data;
-	
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "cli_id")
 	private Cliente cliente;
@@ -44,14 +41,4 @@ public class Emprestimo extends EntidadeDominio {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
-	}
-
-	
 }
