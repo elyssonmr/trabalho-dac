@@ -13,12 +13,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import fai.dao.IDAO;
 import fai.domain.EntidadeDominio;
 
-
+@Component
 public abstract class AbstractJpaDAO<E extends EntidadeDominio> implements IDAO<E> {
 	protected EntityManagerFactory emf;
 	
@@ -26,7 +27,7 @@ public abstract class AbstractJpaDAO<E extends EntidadeDominio> implements IDAO<
 	protected EntityManager em;	
 	
 	
-	//@Transactional para o spring
+	
 	@Transactional
 	public void salvar(E entidade) {
 		/*em.getTransaction().begin();		

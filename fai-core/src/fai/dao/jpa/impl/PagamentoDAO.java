@@ -7,48 +7,48 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Component;
 
-import fai.domain.Cliente;
+import fai.domain.Pagamento;
 
 @Component
-public class ClienteDAO<P extends Cliente> extends AbstractJpaDAO<P> {
+public class PagamentoDAO<P extends Pagamento> extends AbstractJpaDAO<P> {
 
 	@Override
 	public List<P> consultar(P entidade) {
-		Cliente p = (Cliente) entidade;
+		Pagamento p = (Pagamento) entidade;
 		List<P> clientes;
 		clientes = new ArrayList<P>();
 
 		if (p.getId() != null) {
-			Cliente resp = consultar(entidade.getId());
+			Pagamento resp = consultar(entidade.getId());
 			if (resp != null) {
 				clientes.add((P) resp);
 			}
 
 		} else {
-			if (p.getAgencia() != null && p.getConta() != null
-					&& p.getSenha() != null) {
-				Cliente resp = consultar(p.getAgencia(), p.getConta(),
-						p.getSenha());
-
-				if (resp != null) {
-					clientes.add((P) resp);
-				}
-			}
+//			if (p.getAgencia() != null && p.getConta() != null
+//					&& p.getSenha() != null) {
+//				Pagamento resp = consultar(p.getAgencia(), p.getConta(),
+//						p.getSenha());
+//
+//				if (resp != null) {
+//					clientes.add((P) resp);
+//				}
+//			}
 		}
 
 		return clientes;
 	}
 
-	private Cliente consultar(String agencia, String conta, String senha) {
+	private Pagamento consultar(String agencia, String conta, String senha) {
 		Query con = em
 				.createQuery("SELECT c FROM Cliente c WHERE c.agencia = :agencia AND c.conta = :conta AND c.senha = :senha");
 		con.setParameter("agencia", agencia);
 		con.setParameter("conta", conta);
 		con.setParameter("senha", senha);
-		return (Cliente) con.getSingleResult();
+		return (Pagamento) con.getSingleResult();
 	}
 
-	private Cliente consultar(Long id) {
-		return em.find(Cliente.class, id);
+	private Pagamento consultar(Long id) {
+		return em.find(Pagamento.class, id);
 	}
 }
