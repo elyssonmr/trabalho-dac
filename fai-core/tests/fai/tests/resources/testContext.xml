@@ -22,6 +22,7 @@
 		<property name="daos">
 			<map>
 				<entry key="fai.domain.Pagamento" value-ref="pagamentoDao" />
+				<entry key="fai.domain.Cliente" value-ref="clienteDao" />
 			</map>
 		</property>
 
@@ -36,13 +37,6 @@
 						<bean class="fai.negocio.imp.ComplementadorDebitoPagamento" />
 					</list>
 				</entry>
-			</map>
-		</property>
-	</bean>
-
-	<bean id="acoesFachada" class="fai.controle.impl.FachadaAcoes">
-		<property name="acoesCmds">
-			<map>
 				<entry key="fai.domain.Cliente">
 					<list>
 						<bean class="fai.negocio.imp.ValidadorAgencia" />
@@ -78,12 +72,14 @@
 		<property name="agencia" value="ag123" />
 		<property name="conta" value="cc123" />
 		<property name="senha" value="123456" />
+		<property name="pagamentos">
+			<list></list>
+		</property>
 	</bean>
 
 
 	<bean id="pagamento" class="fai.domain.Pagamento">
 		<property name="linhaDigitavel" value="123456789123456789" />
-		<property name="pago" value="true" />
 		<property name="sacado" ref="cliente" />
 		<property name="valor" value="150.0" />
 	</bean>

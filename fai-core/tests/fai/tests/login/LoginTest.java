@@ -16,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fai.core.controle.IFachadaAcoes;
+import fai.core.controle.IFachadaDAO;
 import fai.dao.IDAO;
 import fai.dao.jpa.impl.ClienteDAO;
 import fai.domain.Cliente;
@@ -31,7 +32,7 @@ public class LoginTest {
 	IDAO<Cliente> clienteDao;
 	
 	@Autowired
-	IFachadaAcoes acoesFachada;
+	IFachadaDAO<Cliente> fachada;
 
 	@Autowired
 	private Cliente cliente;
@@ -44,7 +45,7 @@ public class LoginTest {
 	@Test
 	public void deveLogar() {
 		cliente.setId(null);
-		Resultado<Cliente> resultado = acoesFachada.validadeLogin(cliente);
+		Resultado<Cliente> resultado = fachada.consultar(cliente);
 		assertNotNull(resultado);
 		assertNull(resultado.getMensagens());
 		assertEquals(1, resultado.getEntidades().size());
@@ -53,7 +54,7 @@ public class LoginTest {
 	@Test
 	public void deveRetornarErroAgencia() {
 		cliente.setAgencia(null);
-		Resultado<Cliente> resultado = acoesFachada.validadeLogin(cliente);
+		Resultado<Cliente> resultado = fachada.consultar(cliente);
 		
 		assertNotNull(resultado);
 		assertNull(resultado.getEntidades());
@@ -63,7 +64,7 @@ public class LoginTest {
 	@Test
 	public void deveRetornarErroConta() {
 		cliente.setConta(null);
-		Resultado<Cliente> resultado = acoesFachada.validadeLogin(cliente);
+		Resultado<Cliente> resultado = fachada.consultar(cliente);
 		
 		assertNotNull(resultado);
 		assertNull(resultado.getEntidades());
@@ -74,7 +75,7 @@ public class LoginTest {
 	@Test
 	public void deveRetornarErroSenha() {
 		cliente.setSenha(null);
-		Resultado<Cliente> resultado = acoesFachada.validadeLogin(cliente);
+		Resultado<Cliente> resultado = fachada.consultar(cliente);
 		
 		assertNotNull(resultado);
 		assertNull(resultado.getEntidades());
@@ -84,10 +85,11 @@ public class LoginTest {
 	
 	@Test
 	public void deveRetornarErroNoLogin() {
+		cliente.setId(null);
 		cliente.setAgencia(null);
 		cliente.setConta(null);
 		cliente.setSenha(null);
-		Resultado<Cliente> resultado = acoesFachada.validadeLogin(cliente);
+		Resultado<Cliente> resultado = fachada.consultar(cliente);
 		
 		assertNotNull(resultado);
 		assertNull(resultado.getEntidades());

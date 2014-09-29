@@ -50,10 +50,26 @@ public class FachadaDao<P extends EntidadeDominio> implements IFachadaDAO<P> {
 
 	@Override
 	public Resultado consultar(EntidadeDominio entidade) {
-		Resultado resultado = new Resultado();
-		resultado.setEntidades(daos.get(entidade.getClass().getName())
-				.consultar(entidade));
-		return resultado;
+		String nomeClasse = entidade.getClass().getName();
+		List<ICommand> cmds = rns.get(nomeClasse);
+		List<Mensagem> msgs = new ArrayList<Mensagem>();
+
+		for (ICommand cmd : cmds) {
+			String msg = cmd.execute(entidade);
+
+			if (msg != null) {
+				msgs.add(new Mensagem(msg));
+			}
+		}
+
+		if (msgs.size() == 0) {
+			List<P> entidades = daos.get(nomeClasse).consultar(entidade);
+			Resultado<P> resultado = new Resultado<P>();
+			resultado.setEntidades(entidades);
+			return resultado;
+		} else {
+			return new Resultado(msgs);
+		}
 	}
 
 	@Override

@@ -16,27 +16,12 @@ public class Pagamento extends EntidadeDominio {
 	@Column(length = 30, nullable = false)
 	private String linhaDigitavel;
 
-	@Column(nullable = false)
-	private boolean pago;
-
 	@ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = {
 			CascadeType.PERSIST, CascadeType.REFRESH })
 	private Cliente sacado;
 
 	@Column(nullable = false)
 	private float valor;
-
-	public Pagamento() {
-		this.pago = false;
-	}
-
-	public boolean isPago() {
-		return pago;
-	}
-
-	public void setPago(boolean pago) {
-		this.pago = pago;
-	}
 
 	public Cliente getSacado() {
 		return sacado;

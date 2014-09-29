@@ -1,11 +1,14 @@
 package fai.domain;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -31,6 +34,9 @@ public class Cliente extends Pessoa {
 
 	@Column(length = 15, nullable = false)
 	private String senha;
+
+	@OneToMany(mappedBy = "sacado", fetch = FetchType.EAGER)
+	private List<Pagamento> pagamentos;
 
 	public Endereco getEndereco() {
 		return endereco;
@@ -78,5 +84,13 @@ public class Cliente extends Pessoa {
 
 	public void setTipoCliente(TipoCliente tipoCliente) {
 		this.tipoCliente = tipoCliente;
+	}
+
+	public List<Pagamento> getPagamentos() {
+		return pagamentos;
+	}
+
+	public void setPagamentos(List<Pagamento> pagamentos) {
+		this.pagamentos = pagamentos;
 	}
 }

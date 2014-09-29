@@ -10,8 +10,7 @@ import fai.tests.login.LoginTests;
 import fai.tests.pagamento.PagamentoTests;
 
 @RunWith(Suite.class)
-@SuiteClasses({ PagamentoTests.class, LoginTests.class, ConnectionTest.class,
-		CommandTests.class })
+@SuiteClasses({ PagamentoTests.class, LoginTests.class, ConnectionTest.class })
 public class All {
 
 }

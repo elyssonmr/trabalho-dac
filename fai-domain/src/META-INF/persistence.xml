@@ -5,12 +5,6 @@
 	<persistence-unit name="fai-domain" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<class>fai.domain.EntidadeDominio</class>
-		<class>fai.domain.Produto</class>
-		<class>fai.domain.Categoria</class>
-		<class>fai.domain.Fornecedor</class>
-		<class>fai.domain.Pedido</class>
-		<class>fai.domain.Item</class>
-		<class>fai.domain.Modelo</class>
 		<class>fai.domain.Cliente</class>
 		<class>fai.domain.Endereco</class>
 		<class>fai.domain.Pessoa</class>

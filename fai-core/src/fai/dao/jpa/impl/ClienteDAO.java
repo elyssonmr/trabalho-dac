@@ -18,25 +18,26 @@ public class ClienteDAO<P extends Cliente> extends AbstractJpaDAO<P> {
 		List<P> clientes;
 		clientes = new ArrayList<P>();
 
+		if (p.getAgencia() != null && p.getConta() != null
+				&& p.getSenha() != null) {
+			Cliente resp = consultar(p.getAgencia(), p.getConta(), p.getSenha());
+
+			if (resp != null) {
+				clientes.add((P) resp);
+			} else {
+				clientes.clear();
+			}
+			return clientes;
+		}
+
 		if (p.getId() != null) {
 			Cliente resp = consultar(entidade.getId());
 			if (resp != null) {
 				clientes.add((P) resp);
 			}
-
-		} else {
-			if (p.getAgencia() != null && p.getConta() != null
-					&& p.getSenha() != null) {
-				Cliente resp = consultar(p.getAgencia(), p.getConta(),
-						p.getSenha());
-
-				if (resp != null) {
-					clientes.add((P) resp);
-				}
-			}
 		}
 
-		return clientes;
+		return null;
 	}
 
 	private Cliente consultar(String agencia, String conta, String senha) {
