@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/template.xhtml">
+	<ui:define name="conteudo">
+		<form class="form-signin" role="form" style="margin: 0 30%;">
+			<h2 class="form-signin-heading">Entre com o seu acesso</h2>
+			<input type="text" class="form-control" placeholder="Agência"
+				required="" autofocus="" /> <input type="text" class="form-control"
+				placeholder="Conta" required="" /> <input type="password"
+				class="form-control" placeholder="Senha" required="" />
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Acessar</button>
+		</form>
+	</ui:define>
+</ui:composition>
+</html>
