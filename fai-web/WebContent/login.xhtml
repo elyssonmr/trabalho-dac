@@ -8,14 +8,23 @@
 
 <ui:composition template="/template.xhtml">
 	<ui:define name="conteudo">
-		<form class="form-signin" role="form" style="margin: 0 30%;">
+		<h:form class="form-signin" role="form" style="margin: 0 30%;">
 			<h2 class="form-signin-heading">Entre com o seu acesso</h2>
+			
+			<div class="alert alert-danger alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<p>Teste</p>
+			</div>
+			
 			<input type="text" class="form-control" placeholder="Agência"
-				required="" autofocus="" /> <input type="text" class="form-control"
-				placeholder="Conta" required="" /> <input type="password"
-				class="form-control" placeholder="Senha" required="" />
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Acessar</button>
-		</form>
+				required="" autofocus="" />
+			<input type="text" class="form-control" placeholder="Conta"
+				required="" />
+			<input type="password" class="form-control" placeholder="Senha"
+				required="" />
+			<h:commandButton class="btn btn-lg btn-primary btn-block"
+				action="#{loginBean.acessar}" value="Acessar" />			
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>
