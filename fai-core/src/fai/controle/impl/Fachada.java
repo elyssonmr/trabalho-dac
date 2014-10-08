@@ -4,19 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import fai.core.controle.IFachadaDAO;
+import org.springframework.stereotype.Component;
+
+import fai.core.controle.IFachada;
 import fai.dao.IDAO;
 import fai.domain.EntidadeDominio;
 import fai.domain.Mensagem;
 import fai.domain.Resultado;
 import fai.negocio.ICommand;
 
-public class FachadaDao<P extends EntidadeDominio> implements IFachadaDAO<P> {
+@Component
+public class Fachada<P extends EntidadeDominio> implements IFachada<P> {
 
 	private Map<String, IDAO> daos;
 	private Map<String, List<ICommand>> rns;
 
-	public FachadaDao() {
+	public Fachada() {
 	}
 
 	@Override

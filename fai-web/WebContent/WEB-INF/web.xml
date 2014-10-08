@@ -7,6 +7,29 @@
 	<welcome-file-list>
 		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
+	
+	
+	<!-- Define os arquivos de configuracoes XML para o contexto Spring -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+	
+	<listener>
+		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+	</listener>
+	
+	
+	<!-- Inicializa o Spring Web Application Context -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!-- Ativa os escopos web para os beans no Spring -->
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>	
+		
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -25,7 +48,5 @@
 		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
 		<param-value>resources.application</param-value>
 	</context-param>
-	<listener>
-		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
-	</listener>
+	
 </web-app>

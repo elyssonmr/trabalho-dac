@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/template.xhtml">
+	<ui:define name="conteudo">
+		
+			<h2 class="form-signin-heading">Lista Pagamentos</h2>
+			
+			<div class="alert alert-danger alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<p>Teste</p>
+			</div>
+			
+			<h:inputText type="text" class="form-control" placeholder="Agência"
+				required="" autofocus="" value="#{loginBean.agencia}"/>
+			<h:inputText type="text" class="form-control" placeholder="Conta"
+				required="" value="#{loginBean.conta}"/>
+			<h:inputSecret type="password" class="form-control" placeholder="Senha"
+				required="" value="#{loginBean.senha}"/>
+			<h:commandButton class="btn btn-lg btn-primary btn-block"
+				action="#{loginBean.acessar}" value="Acessar" />
+	</ui:define>
+</ui:composition>
+</html>

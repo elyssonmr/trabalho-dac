@@ -1,24 +1,21 @@
 package fai.tests.login;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import javax.annotation.Resource;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import fai.core.controle.IFachadaAcoes;
-import fai.core.controle.IFachadaDAO;
+import fai.core.controle.IFachada;
 import fai.dao.IDAO;
-import fai.dao.jpa.impl.ClienteDAO;
 import fai.domain.Cliente;
 import fai.domain.Resultado;
 
@@ -32,7 +29,7 @@ public class LoginTest {
 	IDAO<Cliente> clienteDao;
 	
 	@Autowired
-	IFachadaDAO<Cliente> fachada;
+	IFachada<Cliente> fachada;
 
 	@Autowired
 	private Cliente cliente;

@@ -5,7 +5,7 @@ import fai.domain.EntidadeDominio;
 import fai.domain.Resultado;
 
 
-public interface IFachadaDAO<E extends EntidadeDominio> {
+public interface IFachada<E extends EntidadeDominio> {
     public Resultado<E> salvar(E entidade);
     public Resultado<E> alterar(E entidade);
     public Resultado<E> consultar(E entidade);

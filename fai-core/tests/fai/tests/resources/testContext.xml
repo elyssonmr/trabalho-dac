@@ -18,7 +18,7 @@
 	<bean id="clienteDao" class="fai.dao.jpa.impl.ClienteDAO" />
 	<bean id="pagamentoDao" class="fai.dao.jpa.impl.PagamentoDAO" />
 
-	<bean id="fachadaDAO" class="fai.controle.impl.FachadaDao">
+	<bean id="fachadaDAO" class="fai.controle.impl.Fachada">
 		<property name="daos">
 			<map>
 				<entry key="fai.domain.Pagamento" value-ref="pagamentoDao" />

@@ -12,65 +12,48 @@
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd 
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
+	<context:component-scan base-package="fai" />
+
 	<bean
 		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+		
+	<bean id="pagamentoDao" class="fai.dao.jpa.impl.PagamentoDAO"/>
+	<bean id="clienteDao" class="fai.dao.jpa.impl.ClienteDAO"/>
 
-	<bean id="fachada" class="fai.controle.impl.Fachada" lazy-init="false"
-		scope="singleton">
+	<bean id="fachada" class="fai.controle.impl.Fachada">
 		<property name="daos">
 			<map>
-				<entry key="fai.domain.TipoCliente" value-ref="tipoClienteDAO" />
-				<entry key="fai.domain.Categoria" value-ref="categoriaJpaDAO" />
+				<entry key="fai.domain.Pagamento" value-ref="pagamentoDao" />
+				<entry key="fai.domain.Cliente" value-ref="clienteDao" />
 			</map>
 		</property>
-	</bean>
 
-	<util:map id="commandsFC" map-class="java.util.HashMap"
-		key-type="java.lang.String" value-type="fai.controle.web.command.ICommandFrontController">
-		<entry key="commandFrontControllerSalvar" value-ref="commandFrontControllerSalvar" />
-	</util:map>
-
-	<util:map id="vhs" map-class="java.util.HashMap" key-type="java.lang.String"
-		value-type="fai.controle.web.command.ICommandFrontController">
-
-		<entry key="/fai-web/SalvarTipoCliente" value-ref="salvarTipoClienteVHWeb" />
-		<entry key="/fai-web/SalvarCliente" value-ref="salvarClienteVHWeb" />
-		<entry key="/fai-web/SalvarCategoria" value-ref="salvarCategoriaVHWeb" />
-
-	</util:map>
-
-	<bean id="salvarTipoClienteVHWeb" class="fai.controle.web.vh.SalvarTipoClienteVHWeb">
-		<property name="tipo" ref="tipo" />
-	</bean>
-
-	<bean id="salvarCategoriaVHWeb" class="fai.controle.web.vh.SalvarCategoriaVHWeb">
-		<property name="categoria" ref="categoria" />
-	</bean>
-
-	<bean id="salvarClienteVHWeb" class="fai.controle.web.vh.SalvarClienteVHWeb">
-		<property name="cliente" ref="cliente" />
-	</bean>
-
-	<bean id="cliente" class="fai.domain.Cliente" />
-	<bean id="tipo" class="fai.domain.TipoCliente" />
-	<bean id="categoria" class="fai.domain.Categoria" />
-
-	<bean id="commandFrontControllerSalvar"
-		class="fai.controle.web.command.impl.CommandFrontControllerSalvar">
-		<property name="fachada" ref="fachada" />
-	</bean>
-
-	<bean id="factoryMethodVH" class="fai.controle.web.vh.FactoryMethodVH">
-		<property name="vhs" ref="vhs" />
+		<property name="rns">
+			<map>
+				<entry key="fai.domain.Pagamento">
+					<list>
+						<bean class="fai.negocio.imp.ComplementadorDataCadastro" />
+						<bean class="fai.negocio.imp.ValidadorLinhaDigitavel" />
+						<bean class="fai.negocio.imp.ValidadorSacado" />
+						<bean class="fai.negocio.imp.ValidadorCreditoPagamento" />
+						<bean class="fai.negocio.imp.ComplementadorDebitoPagamento" />
+					</list>
+				</entry>
+				<entry key="fai.domain.Cliente">
+					<list>
+						<bean class="fai.negocio.imp.ValidadorAgencia" />
+						<bean class="fai.negocio.imp.ValidadorConta" />
+						<bean class="fai.negocio.imp.ValidadorSenha" />
+					</list>
+				</entry>
+			</map>
+		</property>
 	</bean>
 
 	<!-- arquivo properties -->
 	<context:property-placeholder location="classpath:fai/resources/jdbc.properties" />
 
 	<!-- Config. datasource -->
-
-
-
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
@@ -78,7 +61,6 @@
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
-
 
 	<!-- Transaction manager for a single JDBC DataSource (alternative to JTA) -->
 	<bean id="transactionManager"
@@ -88,22 +70,6 @@
 	<bean id="transactionManagerJPA" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-
-	<!-- JDBC template -->
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
-		lazy-init="false">
-		<property name="dataSource" ref="dataSource" />
-		<property name="lazyInit" value="false" />
-	</bean>
-
-	<bean id="tipoClienteDAO" class="fai.dao.jdbc.impl.TipoClienteDAO">
-		<property name="jdbcTemplate" ref="jdbcTemplate" />
-	</bean>
-
-	<bean id="categoriaJpaDAO" class="fai.dao.jpa.impl.CategoriaJpaDAO">
-		<property name="emf" ref="entityManagerFactory" />
-	</bean>
-
 
 	<!-- entity manager factory -->
 	<bean id="entityManagerFactory"
@@ -115,9 +81,6 @@
 			</map>
 		</property>
 	</bean>
+	
 	<tx:annotation-driven transaction-manager="transactionManagerJPA" />
-
-
-
-
 </beans>  

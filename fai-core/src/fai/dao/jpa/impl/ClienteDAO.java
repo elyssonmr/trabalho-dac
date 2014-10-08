@@ -41,12 +41,17 @@ public class ClienteDAO<P extends Cliente> extends AbstractJpaDAO<P> {
 	}
 
 	private Cliente consultar(String agencia, String conta, String senha) {
+		try {
 		Query con = em
 				.createQuery("SELECT c FROM Cliente c WHERE c.agencia = :agencia AND c.conta = :conta AND c.senha = :senha");
 		con.setParameter("agencia", agencia);
 		con.setParameter("conta", conta);
 		con.setParameter("senha", senha);
+		
 		return (Cliente) con.getSingleResult();
+		} catch(Exception ex) {
+			return null;
+		}
 	}
 
 	private Cliente consultar(Long id) {

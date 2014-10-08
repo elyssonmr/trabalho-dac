@@ -1,31 +1,29 @@
 package fai.controller.managedbean;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-import fai.core.controle.IFachadaDAO;
+import fai.core.controle.IFachada;
 import fai.domain.Cliente;
 import fai.domain.Mensagem;
 import fai.domain.Resultado;
 
-@ManagedBean
+@Controller
+@SessionScoped
 public class LoginBean {
 
 	@Autowired
-	private IFachadaDAO<Cliente> fachadaDAO;
+	private IFachada<Cliente> fachada;
 
 	private String agencia;
 	private String conta;
 	private String senha;
+	private Cliente atualCliente;
 
-	private List<Mensagem> erros;
-	
 	public LoginBean() {
-		erros = new ArrayList<Mensagem>();
 	}
 
 	public String acessar() {
@@ -34,17 +32,39 @@ public class LoginBean {
 		cliente.setConta(conta);
 		cliente.setSenha(senha);
 
-		Resultado<Cliente> resp = fachadaDAO.consultar(cliente);
+		Resultado<Cliente> resp = fachada.consultar(cliente);
 
 		if (resp.getMensagens() == null) {
-			// colocar o cliente na sessão
-			// retornar para a lista de pagamentos do Cliente
+			if (resp.getEntidades().isEmpty()) {
+				fai.controller.util.Utils.addErrorMsg("Login Inválido");
+				return "login.xhtml";
+			}
+			this.atualCliente = resp.getEntidades().get(0);
+			reset();
+			return "listaPagamentos.xhtml?faces-redirect=true";
 		} else {
-			// retornar para a tela de login e exibir os erros
-			this.erros = resp.getMensagens();
+			for (Mensagem msg : resp.getMensagens()) {
+				fai.controller.util.Utils.addErrorMsg(msg.getMsg());
+			}
+			return "login.xhtml";
 		}
+	}
 
-		return "";
+	private void reset() {
+		this.agencia = "";
+		this.conta = "";
+		this.senha = "";
+	}
+
+	public String sair() {
+		this.atualCliente = null;
+		FacesContext.getCurrentInstance().getExternalContext()
+				.invalidateSession();
+		return "index.xhtml?faces-redirect=true";
+	}
+
+	public boolean isLogged() {
+		return atualCliente != null;
 	}
 
 	public String getAgencia() {
@@ -71,12 +91,7 @@ public class LoginBean {
 		this.senha = senha;
 	}
 
-	public List<Mensagem> getErros() {
-		return erros;
+	public Cliente getAtualCliente() {
+		return atualCliente;
 	}
-
-	public void setErros(List<Mensagem> erros) {
-		this.erros = erros;
-	}
-
 }
