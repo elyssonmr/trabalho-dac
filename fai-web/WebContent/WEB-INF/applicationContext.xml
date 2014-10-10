@@ -12,71 +12,103 @@
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd 
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
+	<context:component-scan base-package="fai" />
+
 	<bean
 		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+		
+	<bean id="clienteEmprestimo" class="fai.domain.Cliente">
+		<property name="dtCadastro" value="01/01/2014" />
+		<property name="nome" value="Joao Marco de Paula Santana" />
+		<property name="cpf" value="09876543212" />
+		<property name="endereco">
+			<bean class="fai.domain.Endereco">
+				<property name="cidade" value="Santa Rita" />
+				<property name="estado" value="Minas Gerais" />
+				<property name="logradouro" value="Rua A" />
+				<property name="numero" value="45" />
+				<property name="cep" value="37540000" />
+				<property name="dtCadastro" value="01/01/2014" />
+			</bean>
+		</property>
+		<property name="credito" value="1000.0" />
+		<property name="salario" value="2000.0" />
+		<property name="tipoCliente">
+			<bean class="fai.domain.TipoCliente">
+				<property name="descricao" value="Pessoa Fisica" />
+				<property name="dtCadastro" value="01/01/2014" />
+			</bean>
+		</property>
+<!-- 		<property name="emprestimos"> -->
+<!-- 			<bean class="fai.domain.Emprestimo"> -->
+<!-- 				<property name="valor" value="200" /> -->
+<!-- 			</bean> -->
+<!-- 		</property> -->
+<!-- 		<property name="transacoes"> -->
+<!-- 			<bean class="fai.domain.Transacao"> -->
+<!-- 				<property name="valor" value="1500" /> -->
+<!-- 				<property name="tipo" value="1" /> -->
+<!-- 				<property name="dtCadastro" value="01/01/2014" /> -->
+<!-- 			</bean> -->
+<!-- 		</property> -->
+		<property name="agencia" value="ag5645" />
+		<property name="conta" value="cc78789" />
+		<property name="senha" value="123123" />
+	</bean>
 
-	<bean id="fachada" class="fai.controle.impl.FachadaDAO" lazy-init="false"
-		scope="singleton">
+<!-- 	<bean id="pagamentoDao" class="fai.dao.jpa.impl.PagamentoDAO" /> -->
+	<bean id="clienteDao" class="fai.dao.jpa.impl.ClienteDAO" />
+	<bean id="emprestimoDao" class="fai.dao.jpa.impl.EmprestimoDAO" />
+	<bean id="transacaoDao" class="fai.dao.jpa.impl.TransacaoDAO" />
+
+	<bean id="fachada" class="fai.controle.impl.Fachada">
 		<property name="daos">
 			<map>
-				<entry key="fai.domain.TipoCliente" value-ref="tipoClienteDAO" />
-				<entry key="fai.domain.Categoria" value-ref="categoriaJpaDAO" />
+<!-- 				<entry key="fai.domain.Pagamento" value-ref="pagamentoDao" /> -->
+				<entry key="fai.domain.Cliente" value-ref="clienteDao" />
+				<entry key="fai.domain.Emprestimo" value-ref="emprestimoDao" />
+				<entry key="fai.domain.Transacao" value-ref="transacaoDao" />
 			</map>
 		</property>
-	</bean>
 
-	<util:map id="commandsFC" map-class="java.util.HashMap"
-		key-type="java.lang.String" value-type="fai.controle.web.command.ICommandFrontController">
-		<entry key="commandFrontControllerSalvar" value-ref="commandFrontControllerSalvar" />
-	</util:map>
-
-	<util:map id="vhs" map-class="java.util.HashMap" key-type="java.lang.String"
-		value-type="fai.controle.web.command.ICommandFrontController">
-
-		<entry key="/fai-web/SalvarTipoCliente" value-ref="salvarTipoClienteVHWeb" />
-		<entry key="/fai-web/SalvarCliente" value-ref="salvarClienteVHWeb" />
-		<entry key="/fai-web/SalvarCategoria" value-ref="salvarCategoriaVHWeb" />
-		<entry key="/fai-web/SalvarEmprestimo" value-ref="salvarEmprestimoVHWeb" />
-
-	</util:map>
-
-	<bean id="salvarTipoClienteVHWeb" class="fai.controle.web.vh.SalvarTipoClienteVHWeb">
-		<property name="tipo" ref="tipo" />
-	</bean>
-
-	<bean id="salvarCategoriaVHWeb" class="fai.controle.web.vh.SalvarCategoriaVHWeb">
-		<property name="categoria" ref="categoria" />
-	</bean>
-
-	<bean id="salvarClienteVHWeb" class="fai.controle.web.vh.SalvarClienteVHWeb">
-		<property name="cliente" ref="cliente" />
-	</bean>
-	
-	<bean id="salvarEmprestimoVHWeb" class="fai.controle.web.vh.SalvarEmprestimoVHWeb">
-		<property name="emprestimo" ref="emprestimo" />
-	</bean>
-
-	<bean id="cliente" class="fai.domain.Cliente" />
-	<bean id="tipo" class="fai.domain.TipoCliente" />
-	<bean id="categoria" class="fai.domain.Categoria" />
-	<bean id="emprestimo" class="fai.domain.Emprestimo" />
-
-	<bean id="commandFrontControllerSalvar"
-		class="fai.controle.web.command.impl.CommandFrontControllerSalvar">
-		<property name="fachada" ref="fachada" />
-	</bean>
-
-	<bean id="factoryMethodVH" class="fai.controle.web.vh.FactoryMethodVH">
-		<property name="vhs" ref="vhs" />
+		<property name="rns">
+			<map>
+<!-- 				<entry key="fai.domain.Pagamento"> -->
+<!-- 					<list> -->
+<!-- 						<bean class="fai.negocio.imp.ComplementadorDataCadastro" /> -->
+<!-- 						<bean class="fai.negocio.imp.ValidadorLinhaDigitavel" /> -->
+<!-- 						<bean class="fai.negocio.imp.ValidadorSacado" /> -->
+<!-- 						<bean class="fai.negocio.imp.ValidadorCreditoPagamento" /> -->
+<!-- 						<bean class="fai.negocio.imp.ComplementadorDebitoPagamento" /> -->
+<!-- 					</list> -->
+<!-- 				</entry> -->
+				<entry key="fai.domain.Cliente">
+					<list>
+						<bean class="fai.negocio.imp.ValidadorCPF" />
+<!-- 						<bean class="fai.negocio.imp.ValidadorConta" /> -->
+<!-- 						<bean class="fai.negocio.imp.ValidadorSenha" /> -->
+					</list>
+				</entry>
+				<entry key="fai.domain.Emprestimo">
+					<list>
+						<bean class="fai.negocio.imp.ComplementadorDataCadastro" />
+						<bean class="fai.negocio.imp.ValidadorEmprestimo" />
+					</list>
+				</entry>
+				<entry key="fai.domain.Transacao">
+					<list>
+						<bean class="fai.negocio.imp.ComplementadorDataCadastro" />
+						<bean class="fai.negocio.imp.ValidadorSaque" />
+					</list>
+				</entry>
+			</map>
+		</property>
 	</bean>
 
 	<!-- arquivo properties -->
 	<context:property-placeholder location="classpath:fai/resources/jdbc.properties" />
 
 	<!-- Config. datasource -->
-
-
-
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
@@ -84,7 +116,6 @@
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
-
 
 	<!-- Transaction manager for a single JDBC DataSource (alternative to JTA) -->
 	<bean id="transactionManager"
@@ -94,26 +125,6 @@
 	<bean id="transactionManagerJPA" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-
-	<!-- JDBC template -->
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
-		lazy-init="false">
-		<property name="dataSource" ref="dataSource" />
-		<property name="lazyInit" value="false" />
-	</bean>
-
-	<bean id="tipoClienteDAO" class="fai.dao.jdbc.impl.TipoClienteDAO">
-		<property name="jdbcTemplate" ref="jdbcTemplate" />
-	</bean>
-
-	<bean id="categoriaJpaDAO" class="fai.dao.jpa.impl.CategoriaJpaDAO">
-		<property name="emf" ref="entityManagerFactory" />
-	</bean>
-	
-	<bean id="emprestimoJpaDAO" class="fai.dao.jpa.impl.EmprestimoDAO">
-		<property name="emf" ref="entityManagerFactory" />
-	</bean>
-
 
 	<!-- entity manager factory -->
 	<bean id="entityManagerFactory"
@@ -125,5 +136,6 @@
 			</map>
 		</property>
 	</bean>
+
 	<tx:annotation-driven transaction-manager="transactionManagerJPA" />
 </beans>  

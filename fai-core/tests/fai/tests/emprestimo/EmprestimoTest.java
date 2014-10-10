@@ -20,6 +20,7 @@ import fai.dao.IDAO;
 import fai.domain.Cliente;
 import fai.domain.Emprestimo;
 import fai.domain.EntidadeDominio;
+import fai.domain.Transacao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 //specifies the Spring configuration to load for this test fixture
@@ -43,6 +44,11 @@ public class EmprestimoTest {
 
 		Emprestimo emprestimo = (Emprestimo) iter.next();
 		emprestimo.setDtCadastro(new Date());
+		
+		iter = this.cliente.getTransacoes().iterator();
+		
+		Transacao transacao = (Transacao) iter.next();
+		transacao.setDtCadastro(new Date());
 	}
 
 	
