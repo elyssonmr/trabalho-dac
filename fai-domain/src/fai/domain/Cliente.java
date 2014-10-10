@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -22,9 +21,6 @@ public class Cliente extends Pessoa {
 	private Endereco endereco;
 
 	private double credito;
-
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	private TipoCliente tipoCliente;
 
 	@Column(length = 10, nullable = false)
 	private String agencia;
@@ -76,14 +72,6 @@ public class Cliente extends Pessoa {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-
-	public TipoCliente getTipoCliente() {
-		return tipoCliente;
-	}
-
-	public void setTipoCliente(TipoCliente tipoCliente) {
-		this.tipoCliente = tipoCliente;
 	}
 
 	public List<Pagamento> getPagamentos() {

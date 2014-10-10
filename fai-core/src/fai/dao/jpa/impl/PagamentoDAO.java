@@ -26,8 +26,7 @@ public class PagamentoDAO<P extends Pagamento> extends AbstractJpaDAO<P> {
 			}
 			return pagamentos;
 		} else {
-			pagamentos = em.createQuery("SELECT * FROM Pagamento")
-					.getResultList();
+			pagamentos = em.createQuery("SELECT p FROM Pagamento p").getResultList();
 		}
 
 		return pagamentos;

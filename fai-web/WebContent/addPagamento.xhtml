@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/template.xhtml">
+	<ui:define name="conteudo">
+		
+		<h:messages/>
+		<h:form class="form-signin" role="form" style="margin: 0 30%;">
+			<f:event listener="#{pagamentoBean.carregarSacados}" type="preRenderView" />
+			<h2>Inserir Pagamento</h2>	
+			<div class="form-group">
+				<label for="linhaDigitavel">Linha Digitavel</label>
+				<h:inputText id="linhaDigitavel" type="text" class="form-control"
+				required="" autofocus="" value="#{pagamentoBean.linhaDigitavel}"/>
+			</div>
+			<div class="form-group">
+				<label for="valor">Valor</label>
+				<h:inputText id="valor" type="text" class="form-control"
+				required="" value="#{pagamentoBean.valor}"/>
+			</div>
+			<div class="form-group">
+				<label for="sacado">Sacado</label>
+				<h:selectOneMenu class="form-control" id="sacado" value="#{pagamentoBean.idSacado}">
+					<f:selectItem itemLabel="Selecione um Sacado" itemValue="0" />
+					<f:selectItems value="#{pagamentobean.sacados}" var="cliente"
+                       itemLabel="#{cliente.name}" itemValue="#{cliente.id}"/>
+				</h:selectOneMenu>
+			</div>
+			<h:commandButton class="btn btn-lg btn-primary btn-block"
+				action="#{pagamentoBean.salvar}" value="Salvar" />			
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

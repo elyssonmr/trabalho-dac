@@ -35,9 +35,11 @@ public class ClienteDAO<P extends Cliente> extends AbstractJpaDAO<P> {
 			if (resp != null) {
 				clientes.add((P) resp);
 			}
+		} else {
+			clientes = em.createQuery("SELECT c FROM Cliente c").getResultList();
 		}
 
-		return null;
+		return clientes;
 	}
 
 	private Cliente consultar(String agencia, String conta, String senha) {
