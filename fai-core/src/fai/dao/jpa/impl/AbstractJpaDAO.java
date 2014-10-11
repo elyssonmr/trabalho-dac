@@ -13,48 +13,42 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import fai.dao.IDAO;
 import fai.domain.EntidadeDominio;
 
-
-public abstract class AbstractJpaDAO<E extends EntidadeDominio> implements IDAO<E> {
+@Component
+public abstract class AbstractJpaDAO<E extends EntidadeDominio> implements
+		IDAO<E> {
 	protected EntityManagerFactory emf;
-	
-	@PersistenceContext 
-	protected EntityManager em;	
-	
-	
-	//@Transactional para o spring
+
+	@PersistenceContext
+	protected EntityManager em;
+
 	@Transactional
 	public void salvar(E entidade) {
-		/*em.getTransaction().begin();		
-		em.persist(entidade);			
-		em.getTransaction().commit();	*/
-		
-		//Quando configurado pelo spring
 		em.persist(entidade);
-	}	
+	}
+
 	@Override
 	public void alterar(E entidade) {
-		em.getTransaction().begin();		
-		em.refresh(entidade);			
-		em.getTransaction().commit();	
+		em.getTransaction().begin();
+		em.refresh(entidade);
+		em.getTransaction().commit();
 	}
+
 	@Override
+	@Transactional
 	public void excluir(E entidade) {
 		entidade = (E) em.find(entidade.getClass(), entidade.getId());
-        if (entidade != null) {
-        	em.getTransaction().begin();
-        	em.remove(entidade);
-        	em.getTransaction().commit();
-        }
+		if (entidade != null) {
+			em.remove(entidade);
+		}
 	}
-	
+
 	public void setEmf(EntityManagerFactory emf) {
 		this.emf = emf;
-	}	
-	
-	
+	}
 }

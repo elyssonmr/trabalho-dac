@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/template.xhtml">
+	<ui:define name="conteudo">
+		<h2>Lista Pagamentos</h2>
+		
+		<h:form>
+			<div class="well">
+				<h:commandButton class="btn btn-lg btn-primary" action="addPagamento.xhtml" value="Adicionar pagamento" />
+			</div>
+			<h:dataTable value="#{pagamentosBean.pagamentos}" var="pagamento"
+				class="table table-striped table-bordered table-condensed" >
+				<f:event listener="#{pagamentosBean.carregarPagamentos}" type="preRenderView" />
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Linha digitável" />
+					</f:facet>
+					<h:outputText value="#{pagamento.linhaDigitavel}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Valor" />
+					</f:facet>
+					<h:outputText value="#{pagamento.valor}">
+						<f:convertNumber maxFractionDigits="2" type="currency"
+							currencySymbol="R$" />
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Nome Cliente" />
+					</f:facet>
+					<h:outputText value="#{pagamento.sacado.nome}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Deletar" />
+					</f:facet>
+					<h:commandButton class="btn btn-lg btn-danger" actionListener="#{pagamentosBean.deletar(pagamento.id)}"
+						value="Excluir" />
+				</h:column>
+			</h:dataTable>
+		</h:form>
+
+		<div class="modal fade" id="teste">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title">Modal title</h4>
+					</div>
+					<div class="modal-body">
+						<p>One fine body&hellip;</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save
+							changes</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+
+		<script>
+			
+		</script>
+	</ui:define>
+</ui:composition>
+</html>
