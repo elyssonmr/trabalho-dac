@@ -11,6 +11,8 @@ public class ValidadorCreditoPagamento extends AbstractValidator {
 
 		if (pagamento.getValor() >= pagamento.getSacado().getCredito()) {
 			return "Cliente não possui saldo duficiente!";
+		} else {
+			pagamento.getSacado().setCredito(pagamento.getSacado().getCredito() - pagamento.getValor());
 		}
 		return null;
 	}

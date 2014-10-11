@@ -16,8 +16,7 @@ public class Pagamento extends EntidadeDominio {
 	@Column(length = 30, nullable = false)
 	private String linhaDigitavel;
 
-	@ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = {
-			CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(fetch = FetchType.EAGER, optional = false, cascade=CascadeType.REFRESH)
 	private Cliente sacado;
 
 	@Column(nullable = false)

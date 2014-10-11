@@ -9,8 +9,9 @@
 <ui:composition template="/template.xhtml">
 	<ui:define name="conteudo">
 		
-		<h:messages/>
+		
 		<h:form class="form-signin" role="form" style="margin: 0 30%;">
+			<h:messages/>
 			<f:event listener="#{pagamentoBean.carregarSacados}" type="preRenderView" />
 			<h2>Inserir Pagamento</h2>	
 			<div class="form-group">
@@ -27,8 +28,8 @@
 				<label for="sacado">Sacado</label>
 				<h:selectOneMenu class="form-control" id="sacado" value="#{pagamentoBean.idSacado}">
 					<f:selectItem itemLabel="Selecione um Sacado" itemValue="0" />
-					<f:selectItems value="#{pagamentobean.sacados}" var="cliente"
-                       itemLabel="#{cliente.name}" itemValue="#{cliente.id}"/>
+					<f:selectItems value="#{pagamentoBean.sacados}" var="cliente"
+                       itemLabel="#{cliente.nome}" itemValue="#{cliente.id}"/>
 				</h:selectOneMenu>
 			</div>
 			<h:commandButton class="btn btn-lg btn-primary btn-block"

@@ -2,8 +2,6 @@ package fai.controller.managedbean;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,20 +19,24 @@ import fai.domain.Resultado;
 public class PagamentoBean {
 
 	private String linhaDigitavel;
-	private Double valor;
+	private Float valor;
 	private Long idSacado;
 	private List<Cliente> sacados;
 
 	@Autowired
 	private IFachada fachada;
-
+	
 	public void carregarSacados() {
 		sacados = fachada.consultar(new Cliente()).getEntidades();
 	}
 
-	public void salvar() {
+	public String salvar() {
+		if(idSacado == 0) {
+			return "addPagamento.xhtml";
+		}
 		Pagamento pagamento = new Pagamento();
 		pagamento.setLinhaDigitavel(linhaDigitavel);
+		pagamento.setValor(valor);
 		Cliente cli = new Cliente();
 		cli.setId(idSacado);
 		pagamento.setSacado((Cliente) fachada.consultar(cli).getEntidades()
@@ -42,20 +44,22 @@ public class PagamentoBean {
 
 		Resultado<Pagamento> result = fachada.salvar(pagamento);
 
-		if (result.getMensagens() == null) {
+		if (result == null) {
 			this.reset();
 			Utils.addErrorMsg("Pagamento Efetuado!");
+			return "listaPagamentos.xhtml?faces-redirect=true";
 		} else {
 			for (Mensagem msg : result.getMensagens()) {
 				Utils.addErrorMsg(msg.getMsg());
 			}
 		}
+		return "addPagamento.xhtml";
 	}
 
 	private void reset() {
 		this.linhaDigitavel = "";
 		this.idSacado = 0L;
-		this.valor = 0.0D;
+		this.valor = 0.0F;
 	}
 
 	public String getLinhaDigitavel() {
@@ -66,11 +70,11 @@ public class PagamentoBean {
 		this.linhaDigitavel = linhaDigitavel;
 	}
 
-	public Double getValor() {
+	public Float getValor() {
 		return valor;
 	}
 
-	public void setValor(Double valor) {
+	public void setValor(Float valor) {
 		this.valor = valor;
 	}
 

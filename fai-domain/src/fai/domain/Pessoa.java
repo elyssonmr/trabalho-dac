@@ -8,10 +8,10 @@ public abstract class Pessoa extends EntidadeDominio {
 	private static final long serialVersionUID = 1L;
 
 	@Column(length = 50, nullable = false)
-	private String nome;
+	protected String nome;
 
 	@Column(length = 11, nullable = false)
-	private String cpf;
+	protected String cpf;
 
 	public String getCpf() {
 		return cpf;
