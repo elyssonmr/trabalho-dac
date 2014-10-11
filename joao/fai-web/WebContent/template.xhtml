@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Trabalho DAC - Sys Banky</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/css/bootstrap-combobox.css" media="screen" rel="stylesheet" type="text/css"/>
+</h:head>
+<h:body>
+	<div id="header">
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Trabalho DAC</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<form class="navbar-form navbar-right" role="form">
+						<div class="form-group">
+							<input type="text" placeholder="Email" class="form-control" />
+						</div>
+						<div class="form-group">
+							<input type="password" placeholder="Password"
+								class="form-control" />
+						</div>
+						<button type="submit" class="btn btn-success">Sign in</button>
+					</form>
+				</div>
+				<!--/.navbar-collapse -->
+			</div>
+		</div>
+	</div>
+	<ui:insert name="conteudo">
+			Espaço para o conteúdo da Tela
+	</ui:insert>
+
+	<div id="footer" style="text-align: center">
+		<hr />
+		&copy; 2014 FAI
+	</div>
+
+	<div id="scripts">
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="/js/bootstrap-combobox.js" type="text/javascript"></script>
+		<ui:insert name="script">
+		</ui:insert>
+	</div>
+</h:body>
+</html>
