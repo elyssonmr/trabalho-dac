@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.RequestScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import fai.controller.util.Utils;
@@ -15,7 +16,7 @@ import fai.domain.Pagamento;
 import fai.domain.Resultado;
 
 @Controller
-@RequestScoped
+@Scope("")
 public class PagamentosBean {
 
 	private List<Pagamento> pagamentos;
