@@ -1,6 +1,7 @@
 package fai.domain;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,6 +22,8 @@ public class Cliente extends Pessoa {
 	private Endereco endereco;
 
 	private double credito;
+	
+	private double salario;
 
 	@Column(length = 10, nullable = false)
 	private String agencia;
@@ -33,6 +36,16 @@ public class Cliente extends Pessoa {
 
 	@OneToMany(mappedBy = "sacado", fetch = FetchType.EAGER)
 	private List<Pagamento> pagamentos;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE,
+			CascadeType.DETACH })
+	private Set<Emprestimo> emprestimos;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE,
+			CascadeType.DETACH })
+	private Set<Transacao> transacoes;
 
 	public Endereco getEndereco() {
 		return endereco;
@@ -80,5 +93,35 @@ public class Cliente extends Pessoa {
 
 	public void setPagamentos(List<Pagamento> pagamentos) {
 		this.pagamentos = pagamentos;
+	}
+
+	
+	public Set<Emprestimo> getEmprestimos() {
+		return emprestimos;
+	}
+
+	public void setEmprestimos(Set<Emprestimo> emprestimos) {
+		this.emprestimos = emprestimos;
+	}
+
+	public Set<Transacao> getTransacoes() {
+		return transacoes;
+	}
+
+	public void setTransacoes(Set<Transacao> transacoes) {
+		this.transacoes = transacoes;
+	}
+	
+	public double getSalario() {
+		return salario;
+	}
+
+	public void setSalario(double salario) {
+		this.salario = salario;
+	}
+
+	@Override
+	public String toString() {
+		return this.nome;
 	}
 }

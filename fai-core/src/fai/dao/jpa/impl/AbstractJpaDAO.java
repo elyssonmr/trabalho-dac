@@ -33,19 +33,17 @@ public abstract class AbstractJpaDAO<E extends EntidadeDominio> implements
 	}
 
 	@Override
+	@Transactional
 	public void alterar(E entidade) {
-		em.getTransaction().begin();
-		em.refresh(entidade);
-		em.getTransaction().commit();
+		em.merge(entidade);			
 	}
-
 	@Override
 	@Transactional
 	public void excluir(E entidade) {
 		entidade = (E) em.find(entidade.getClass(), entidade.getId());
-		if (entidade != null) {
-			em.remove(entidade);
-		}
+        if (entidade != null) {
+        	em.remove(entidade);
+        }
 	}
 
 	public void setEmf(EntityManagerFactory emf) {

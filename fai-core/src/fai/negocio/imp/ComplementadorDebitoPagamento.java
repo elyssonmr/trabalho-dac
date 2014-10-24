@@ -8,12 +8,14 @@ public class ComplementadorDebitoPagamento extends AbstractComplementador {
 
 	@Override
 	public String complementar(EntidadeDominio entidade) {
-		Pagamento pagamento =  (Pagamento) entidade;
 
-		Cliente sacado = pagamento.getSacado();
-		
-		sacado.setCredito(sacado.getCredito() - pagamento.getValor());
-		
+		Pagamento pagamento = (Pagamento) entidade;
+		if (pagamento.getValor() != null) {
+			Cliente sacado = pagamento.getSacado();
+
+			sacado.setCredito(sacado.getCredito() - pagamento.getValor());
+		}
+
 		return null;
 	}
 

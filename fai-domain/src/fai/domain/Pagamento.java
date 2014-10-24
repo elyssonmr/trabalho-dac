@@ -20,7 +20,7 @@ public class Pagamento extends EntidadeDominio {
 	private Cliente sacado;
 
 	@Column(nullable = false)
-	private float valor;
+	private Float valor;
 
 	public Cliente getSacado() {
 		return sacado;
@@ -38,11 +38,11 @@ public class Pagamento extends EntidadeDominio {
 		this.linhaDigitavel = linhaDigitavel;
 	}
 
-	public float getValor() {
+	public Float getValor() {
 		return valor;
 	}
 
-	public void setValor(float valor) {
+	public void setValor(Float valor) {
 		this.valor = valor;
 	}
 
