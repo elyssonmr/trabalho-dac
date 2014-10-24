@@ -1,5 +1,10 @@
 package fai.domain;
 
+<<<<<<< HEAD
+=======
+import java.util.Date;
+
+>>>>>>> elyssonmr
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;

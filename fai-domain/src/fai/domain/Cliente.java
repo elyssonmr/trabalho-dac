@@ -22,6 +22,8 @@ public class Cliente extends Pessoa {
 	private Endereco endereco;
 
 	private double credito;
+	
+	private double salario;
 
 	@Column(length = 10, nullable = false)
 	private String agencia;
@@ -39,15 +41,22 @@ public class Cliente extends Pessoa {
 			CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE,
 			CascadeType.DETACH })
 	private Set<Emprestimo> emprestimos;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> elyssonmr
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE,
 			CascadeType.DETACH })
 	private Set<Transacao> transacoes;
 
+<<<<<<< HEAD
 	@Column(nullable = false)
 	private double salario;
 
+=======
+>>>>>>> elyssonmr
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -96,6 +105,10 @@ public class Cliente extends Pessoa {
 		this.pagamentos = pagamentos;
 	}
 
+<<<<<<< HEAD
+=======
+	
+>>>>>>> elyssonmr
 	public Set<Emprestimo> getEmprestimos() {
 		return emprestimos;
 	}
@@ -111,7 +124,11 @@ public class Cliente extends Pessoa {
 	public void setTransacoes(Set<Transacao> transacoes) {
 		this.transacoes = transacoes;
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> elyssonmr
 	public double getSalario() {
 		return salario;
 	}
@@ -119,4 +136,12 @@ public class Cliente extends Pessoa {
 	public void setSalario(double salario) {
 		this.salario = salario;
 	}
+<<<<<<< HEAD
+=======
+
+	@Override
+	public String toString() {
+		return this.nome;
+	}
+>>>>>>> elyssonmr
 }

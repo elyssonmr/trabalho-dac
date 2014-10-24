@@ -19,12 +19,16 @@
 		
 	<bean id="pagamentoDao" class="fai.dao.jpa.impl.PagamentoDAO"/>
 	<bean id="clienteDao" class="fai.dao.jpa.impl.ClienteDAO"/>
+	<bean id="emprestimoDao" class="fai.dao.jpa.impl.EmprestimoDAO" />
+	<bean id="transacaoDao" class="fai.dao.jpa.impl.TransacaoDAO" />
 
 	<bean id="fachada" class="fai.controle.impl.Fachada">
 		<property name="daos">
 			<map>
 				<entry key="fai.domain.Pagamento" value-ref="pagamentoDao" />
 				<entry key="fai.domain.Cliente" value-ref="clienteDao" />
+				<entry key="fai.domain.Emprestimo" value-ref="emprestimoDao" />
+				<entry key="fai.domain.Transacao" value-ref="transacaoDao" />
 			</map>
 		</property>
 
@@ -44,6 +48,19 @@
 						<bean class="fai.negocio.imp.ValidadorAgencia" />
 						<bean class="fai.negocio.imp.ValidadorConta" />
 						<bean class="fai.negocio.imp.ValidadorSenha" />
+						<bean class="fai.negocio.imp.ValidadorCPF" />
+					</list>
+				</entry>
+				<entry key="fai.domain.Emprestimo">
+					<list>
+						<bean class="fai.negocio.imp.ComplementadorDataCadastro" />
+						<bean class="fai.negocio.imp.ValidadorEmprestimo" />
+					</list>
+				</entry>
+				<entry key="fai.domain.Transacao">
+					<list>
+						<bean class="fai.negocio.imp.ComplementadorDataCadastro" />
+						<bean class="fai.negocio.imp.ValidadorSaque" />
 					</list>
 				</entry>
 			</map>

@@ -20,6 +20,7 @@ public class ClienteBean {
 	@Autowired
 	private IFachada<Cliente> fachada;
 	
+<<<<<<< HEAD
 	Cliente cliente = new Cliente();
 	
 	String nome;
@@ -34,6 +35,51 @@ public class ClienteBean {
 
 	private double valor;
 	
+=======
+	@Autowired
+	private IFachada<Cliente> fachadaCliente;
+	
+	Cliente cliente = new Cliente();
+	
+	private String nome;
+	private String agencia;
+	private String conta;
+	private String cpf;
+	private Double credito;
+	private Double salario;
+	private String senha;
+	private List<Cliente> clientes;
+	private double valor;
+	
+	public void resetCliente(){
+		if(cliente != null){
+			cliente = new Cliente();
+		}
+		nome = "";
+		agencia = "";
+		conta = "";
+		cpf = "";
+		credito = new Double(0);
+		salario = new Double(0);
+		senha = "";
+	}
+	
+	public void setCliente(Long id){
+		Cliente c = new Cliente();
+		c.setId(id);
+		clientes = fachadaCliente.consultar(c).getEntidades();
+		
+		c = clientes.get(0);
+		nome = c.getNome();
+		agencia = c.getAgencia();
+		conta = c.getConta();
+		cpf = c.getCpf();
+		credito = c.getCredito();
+		salario = c.getSalario();
+		senha = c.getSenha();
+	}
+	
+>>>>>>> elyssonmr
 	public String salvarCliente(){
 		cliente.setNome(nome);
 		cliente.setAgencia(agencia);
@@ -50,8 +96,36 @@ public class ClienteBean {
 			for (Mensagem msg : resultado.getMensagens()) {
 				fai.controller.util.Utils.addErrorMsg(msg.getMsg());
 			}
+<<<<<<< HEAD
 		}
 		return "Cliente.xhtml";
+=======
+			return "addCliente.xhtml";
+		}
+		return "listaClientes.xhtml";
+	}
+	
+	public String alterarCliente(){
+		cliente.setNome(nome);
+		cliente.setAgencia(agencia);
+		cliente.setConta(conta);
+		cliente.setCpf(cpf);
+		cliente.setCredito(credito);
+		cliente.setDtCadastro(new Date());
+		cliente.setSalario(salario);
+		cliente.setSenha(senha);
+		cliente.setId(clientes.get(0).getId());
+		
+		Resultado<Cliente> resultado = fachada.alterar(cliente);
+		
+		if (resultado != null && resultado.getMensagens() != null) {
+			for (Mensagem msg : resultado.getMensagens()) {
+				fai.controller.util.Utils.addErrorMsg(msg.getMsg());
+			}
+			return "addCliente.xhtml";
+		}
+		return "listaClientes.xhtml";
+>>>>>>> elyssonmr
 	}
 	
 	public void listarClientes(){

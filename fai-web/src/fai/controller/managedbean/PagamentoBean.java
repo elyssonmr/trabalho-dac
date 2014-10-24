@@ -5,6 +5,7 @@ import java.util.List;
 import javax.faces.bean.ViewScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import fai.controller.util.Utils;
@@ -15,7 +16,7 @@ import fai.domain.Pagamento;
 import fai.domain.Resultado;
 
 @Controller
-@ViewScoped
+@Scope("request")
 public class PagamentoBean {
 
 	private String linhaDigitavel;

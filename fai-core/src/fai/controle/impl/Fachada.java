@@ -47,8 +47,24 @@ public class Fachada<P extends EntidadeDominio> implements IFachada<P> {
 
 	@Override
 	public Resultado alterar(EntidadeDominio entidade) {
-		daos.get(entidade.getClass().getName()).alterar(entidade);
-		return new Resultado();
+		String nomeClasse = entidade.getClass().getName();
+		List<ICommand> cmds = rns.get(nomeClasse);
+		List<Mensagem> msgs = new ArrayList<Mensagem>();
+
+		for (ICommand cmd : cmds) {
+			String msg = cmd.execute(entidade);
+
+			if (msg != null) {
+				msgs.add(new Mensagem(msg));
+			}
+		}
+
+		if (msgs.size() == 0) {
+			daos.get(entidade.getClass().getName()).alterar(entidade);
+			return null;
+		} else {
+			return new Resultado(msgs);
+		}
 	}
 
 	@Override

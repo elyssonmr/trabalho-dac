@@ -1,6 +1,10 @@
 package fai.controller.managedbean;
 
 import java.util.Date;
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> elyssonmr
 
 import javax.faces.bean.SessionScoped;
 
@@ -9,7 +13,10 @@ import org.springframework.stereotype.Controller;
 
 import fai.core.controle.IFachada;
 import fai.domain.Cliente;
+<<<<<<< HEAD
 import fai.domain.Emprestimo;
+=======
+>>>>>>> elyssonmr
 import fai.domain.Mensagem;
 import fai.domain.Resultado;
 import fai.domain.Transacao;
@@ -20,15 +27,30 @@ public class TransacaoBean {
 
 	@Autowired
 	private IFachada<Transacao> fachada;
+<<<<<<< HEAD
 
 	Transacao transacao = new Transacao();
 
 	@Autowired
 	Cliente clienteEmprestimo;
+=======
+	
+	@Autowired
+	private IFachada<Cliente> fachadaCliente;
+	
+	@Autowired
+	private IFachada<Transacao> fachadaTransacao;
+
+	Transacao transacao = new Transacao();
+	
+	List<Cliente> clientes;
+	List<Transacao> transacoes;
+>>>>>>> elyssonmr
 
 	int operacao;
 
 	private double valor;
+<<<<<<< HEAD
 
 	public String criarTransacao() {
 		transacao.setValor(valor);
@@ -48,6 +70,69 @@ public class TransacaoBean {
 //		} else {
 //			return "Extrato.xhtml";
 //		}
+=======
+	
+	public void setCliente(Long id){
+		Cliente c = new Cliente();
+		c.setId(id);
+		clientes = fachadaCliente.consultar(c).getEntidades();
+	}
+	
+	public void setTransacao(Long id){
+		Transacao e = new Transacao();
+		e.setId(id);
+		transacoes = fachadaTransacao.consultar(e).getEntidades();
+	}
+
+	public String criarSaque(){
+		transacao.setTipo(0);
+		transacao.setCliente(clientes.get(0));
+		
+		if(criarTransacao(transacao))
+			return "listaClientes.xhtml";
+		else
+			return "addSaque.xhtml";
+	}
+	
+	public String criarDeposito(){
+		transacao.setTipo(1);
+		transacao.setCliente(clientes.get(0));
+		
+		if(criarTransacao(transacao))
+			return "listaClientes.xhtml";
+		else
+			return "addDeposito.xhtml";
+	}
+	
+	private boolean criarTransacao(Transacao transacao2) {
+		transacao.setValor(valor);
+		transacao.setDtCadastro(new Date());
+		
+		Resultado<Transacao> resultado = fachada.alterar(transacao);
+		
+		if (resultado != null && resultado.getMensagens() != null) {
+			for (Mensagem msg : resultado.getMensagens()) {
+				fai.controller.util.Utils.addErrorMsg(msg.getMsg());
+			}
+			return false;
+		}
+		return true;
+	}
+
+	public String alterarTransacao(){
+		transacao = transacoes.get(0);
+		transacao.setValor(valor);
+		
+		Resultado<Transacao> resultado = fachada.alterar(transacao);
+		
+		if (resultado != null && resultado.getMensagens() != null) {
+			for (Mensagem msg : resultado.getMensagens()) {
+				fai.controller.util.Utils.addErrorMsg(msg.getMsg());
+			}
+			return "AddDeposito.xhtml";
+		}
+		return "listaClientes.xhtml";
+>>>>>>> elyssonmr
 	}
 
 	public double getValor() {
@@ -82,6 +167,25 @@ public class TransacaoBean {
 		this.operacao = operacao;
 	}
 
+<<<<<<< HEAD
+=======
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+
+	public List<Transacao> getTransacoes() {
+		return transacoes;
+	}
+
+	public void setTransacoes(List<Transacao> transacoes) {
+		this.transacoes = transacoes;
+	}
+	
+>>>>>>> elyssonmr
 	
 
 }
