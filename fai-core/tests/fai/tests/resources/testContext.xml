@@ -18,7 +18,7 @@
 	<bean id="clienteDao" class="fai.dao.jpa.impl.ClienteDAO" />
 	<bean id="pagamentoDao" class="fai.dao.jpa.impl.PagamentoDAO" />
 
-	<bean id="fachadaDAO" class="fai.controle.impl.Fachada">
+	<bean id="fachada" class="fai.controle.impl.Fachada">
 		<property name="daos">
 			<map>
 				<entry key="fai.domain.Pagamento" value-ref="pagamentoDao" />
@@ -63,12 +63,6 @@
 			</bean>
 		</property>
 		<property name="credito" value="200.0" />
-		<property name="tipoCliente">
-			<bean class="fai.domain.TipoCliente">
-				<property name="descricao" value="Pessoa Fisica" />
-				<property name="dtCadastro" value="20/19/2014" />
-			</bean>
-		</property>
 		<property name="agencia" value="ag123" />
 		<property name="conta" value="cc123" />
 		<property name="senha" value="123456" />
