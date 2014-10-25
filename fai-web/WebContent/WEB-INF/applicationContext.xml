@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd 
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd 
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<context:component-scan base-package="fai" />
+
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+		
+	<bean id="pagamentoDao" class="fai.dao.jpa.impl.PagamentoDAO"/>
+	<bean id="clienteDao" class="fai.dao.jpa.impl.ClienteDAO"/>
+	<bean id="emprestimoDao" class="fai.dao.jpa.impl.EmprestimoDAO" />
+	<bean id="transacaoDao" class="fai.dao.jpa.impl.TransacaoDAO" />
+
+	<bean id="fachada" class="fai.controle.impl.Fachada">
+		<property name="daos">
+			<map>
+				<entry key="fai.domain.Pagamento" value-ref="pagamentoDao" />
+				<entry key="fai.domain.Cliente" value-ref="clienteDao" />
+				<entry key="fai.domain.Emprestimo" value-ref="emprestimoDao" />
+				<entry key="fai.domain.Transacao" value-ref="transacaoDao" />
+			</map>
+		</property>
+
+		<property name="rns">
+			<map>
+				<entry key="fai.domain.Pagamento">
+					<list>
+						<bean class="fai.negocio.imp.ComplementadorDataCadastro" />
+						<bean class="fai.negocio.imp.ValidadorLinhaDigitavel" />
+						<bean class="fai.negocio.imp.ValidadorSacado" />
+						<bean class="fai.negocio.imp.ValidadorCreditoPagamento" />
+						<bean class="fai.negocio.imp.ComplementadorDebitoPagamento" />
+					</list>
+				</entry>
+				<entry key="fai.domain.Cliente">
+					<list>
+						<bean class="fai.negocio.imp.ValidadorAgencia" />
+						<bean class="fai.negocio.imp.ValidadorConta" />
+						<bean class="fai.negocio.imp.ValidadorSenha" />
+						<bean class="fai.negocio.imp.ValidadorCPF" />
+					</list>
+				</entry>
+				<entry key="fai.domain.Emprestimo">
+					<list>
+						<bean class="fai.negocio.imp.ComplementadorDataCadastro" />
+						<bean class="fai.negocio.imp.ValidadorEmprestimo" />
+					</list>
+				</entry>
+				<entry key="fai.domain.Transacao">
+					<list>
+						<bean class="fai.negocio.imp.ComplementadorDataCadastro" />
+						<bean class="fai.negocio.imp.ValidadorSaque" />
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<!-- arquivo properties -->
+	<context:property-placeholder location="classpath:fai/resources/jdbc.properties" />
+
+	<!-- Config. datasource -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<!-- Transaction manager for a single JDBC DataSource (alternative to JTA) -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="dataSource" />
+
+	<bean id="transactionManagerJPA" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!-- entity manager factory -->
+	<bean id="entityManagerFactory"
+		class='org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean'>
+		<property name='dataSource' ref='dataSource' />
+		<property name="jpaPropertyMap">
+			<map>
+				<entry key="eclipselink.weaving" value="false" />
+			</map>
+		</property>
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManagerJPA" />
+</beans>  
