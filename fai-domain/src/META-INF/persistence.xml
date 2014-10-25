@@ -9,8 +9,6 @@
 		<class>fai.domain.Endereco</class>
 		<class>fai.domain.Pessoa</class>
 		<class>fai.domain.Pagamento</class>
-		<class>fai.domain.Transacao</class>
-		<class>fai.domain.Emprestimo</class>
 
 		<properties>
 			<property name="eclipselink.logging.level" value="ALL" />

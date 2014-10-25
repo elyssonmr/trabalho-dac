@@ -37,16 +37,6 @@ public class Cliente extends Pessoa {
 	@OneToMany(mappedBy = "sacado", fetch = FetchType.EAGER)
 	private List<Pagamento> pagamentos;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE,
-			CascadeType.DETACH })
-	private Set<Emprestimo> emprestimos;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE,
-			CascadeType.DETACH })
-	private Set<Transacao> transacoes;
-
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -93,23 +83,6 @@ public class Cliente extends Pessoa {
 
 	public void setPagamentos(List<Pagamento> pagamentos) {
 		this.pagamentos = pagamentos;
-	}
-
-	
-	public Set<Emprestimo> getEmprestimos() {
-		return emprestimos;
-	}
-
-	public void setEmprestimos(Set<Emprestimo> emprestimos) {
-		this.emprestimos = emprestimos;
-	}
-
-	public Set<Transacao> getTransacoes() {
-		return transacoes;
-	}
-
-	public void setTransacoes(Set<Transacao> transacoes) {
-		this.transacoes = transacoes;
 	}
 	
 	public double getSalario() {
