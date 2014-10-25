@@ -14,6 +14,7 @@ public class ComplementadorDebitoPagamento extends AbstractComplementador {
 			Cliente sacado = pagamento.getSacado();
 
 			sacado.setCredito(sacado.getCredito() - pagamento.getValor());
+			sacado.getPagamentos().add(pagamento);
 		}
 
 		return null;

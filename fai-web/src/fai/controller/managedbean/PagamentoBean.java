@@ -2,6 +2,7 @@ package fai.controller.managedbean;
 
 import java.util.List;
 
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import fai.domain.Pagamento;
 import fai.domain.Resultado;
 
 @Controller
-@Scope("request")
 public class PagamentoBean {
 
 	private String linhaDigitavel;

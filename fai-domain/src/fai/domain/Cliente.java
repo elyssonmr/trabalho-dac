@@ -119,6 +119,8 @@ public class Cliente extends Pessoa {
 	public void setSalario(double salario) {
 		this.salario = salario;
 	}
+	
+	
 
 	@Override
 	public String toString() {
